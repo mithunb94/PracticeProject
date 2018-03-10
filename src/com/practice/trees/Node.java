@@ -40,9 +40,4 @@ public class Node<T> {
     public String toString() {
         return String.valueOf(this.data);
     }
-    
-    public static void main(String[] args) {
-        Node<Integer> newNode = new Node<Integer>(5);
-        System.out.println(newNode);
-    }
 }
