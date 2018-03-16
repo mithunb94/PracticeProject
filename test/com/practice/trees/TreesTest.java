@@ -37,6 +37,11 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testPostOrderUsingTwoStacks() {
+		assertEquals("DEBFGCA", ((BinaryTree<String>) bTree).postOrderUsingTwoStacks());
+	}
+	
+	@Test
 	public void testLevelOrder() {
 		assertEquals("ABCDEFG", bTree.levelOrder());
 	}

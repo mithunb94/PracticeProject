@@ -91,20 +91,62 @@ public class BinaryTree<T> implements Tree<T>{
 			if (stack.isEmpty()) {
 				break;
 			}
-			if (stack.peek().getRight() == null) {
+			curr = stack.peek();
+			if (curr.getRight() == null) {
+				sb.append(curr.getData());
+				stack.pop();
+			}
+			if (!stack.isEmpty() && curr == stack.peek().getRight()) {
 				curr = stack.pop();
 				sb.append(curr.getData());
 			}
-			if (curr == stack.peek().getRight()) {
-				sb.append(stack.pop());
-			}
 			if (!stack.isEmpty()) {
-				curr = stack.peek().getRight();
+				if (curr == stack.peek().getRight()) {
+					sb.append(stack.pop().getData());
+					curr = null;
+				} else {
+					curr = stack.peek().getRight();
+				}
 			} else {
 				curr = null;
 			}
 		}
 		return sb.toString();
+	}
+	
+	/**
+	 * Perform a postOrder traversal and print the elements respectively.
+	 * This method uses two stacks instead of just one stack.
+	 * @return
+	 */
+	public String postOrderUsingTwoStacks() {
+		Node<T> curr = root;
+		Stack<Node> s1 = new Stack<>();
+		Stack<Node> s2 = new Stack<>();
+		StringBuilder sb = new StringBuilder();
+		while (true) {
+			while (curr != null) {
+				s1.push(curr);
+				curr = curr.getLeft();
+			}
+			if (s1.isEmpty()) {
+				while (!s2.isEmpty() ) {
+					sb.append(s2.pop().getData());
+				}
+				return sb.toString();
+			}
+			curr = s1.pop();
+			s2.push(curr);
+			if (curr.getRight() == null) {
+				sb.append(s2.pop());
+				if (!s2.isEmpty() && curr == s2.peek().getRight()) {
+					sb.append(s2.pop());
+				}
+				curr = null;
+			} else {
+				curr = curr.getRight();
+			}
+		}
 	}
 
 	/**
