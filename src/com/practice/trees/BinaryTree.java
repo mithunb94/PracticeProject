@@ -7,7 +7,12 @@ import java.util.Stack;
 
 public class BinaryTree<T> implements Tree<T>{
 
-	Node<T> root;
+	private Node<T> root;
+	
+	@Override
+	public Node<T> getRoot() {
+		return root;
+	}
 	
 	@Override
 	public void add(T data) {
@@ -199,6 +204,43 @@ public class BinaryTree<T> implements Tree<T>{
 			}
 		}
 		return sb.toString();
+	}
+	
+	public boolean searchRecursive(Node curr, T data) {
+		if (curr == null) {
+			return false;
+		}
+		if (curr.getData() == data) {
+			return true;
+		}
+		if (searchRecursive(curr.getLeft(), data)) {
+			return true;
+		}
+		if (searchRecursive(curr.getRight(), data)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean searchNonRecursive(T data) {
+		if (root == null) {
+			return false;
+		}
+		Queue<Node> q = new LinkedList<>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			Node curr = q.remove();
+			if (curr.getData() == data) {
+				return true;
+			}
+			if (curr.getLeft() != null) {
+				q.add(curr.getLeft());
+			}
+			if (curr.getRight() != null) {
+				q.add(curr.getRight());
+			}
+		}
+		return false;
 	}
 	
 	public static void main(String[] args) {

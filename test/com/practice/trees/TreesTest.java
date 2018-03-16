@@ -45,4 +45,16 @@ public class TreesTest {
 	public void testLevelOrder() {
 		assertEquals("ABCDEFG", bTree.levelOrder());
 	}
+	
+	@Test
+	public void testSearchRecursive() {
+		assertTrue(((BinaryTree<String>) bTree).searchRecursive(bTree.getRoot(), "F"));
+		assertTrue(!((BinaryTree<String>) bTree).searchRecursive(bTree.getRoot(), "X"));
+	}
+	
+	@Test
+	public void testSearchNonRecursive() {
+		assertTrue(((BinaryTree<String>) bTree).searchNonRecursive("F"));
+		assertTrue(!((BinaryTree<String>) bTree).searchNonRecursive("X"));
+	}
 }

@@ -1,6 +1,8 @@
 package com.practice.trees;
 
 public interface Tree<T> {
+	
+	public abstract Node<T> getRoot();
 
 	public abstract void add(T data);
 	
