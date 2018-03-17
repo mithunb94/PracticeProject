@@ -13,4 +13,10 @@ public interface Tree<T> {
 	public abstract String inOrder();
 	
 	public abstract String levelOrder();
+	
+	public abstract int size(Node curr);
+	
+	public abstract void deleteRecursive(Node curr);
+	
+	public abstract void deleteNonRecursive();
 }

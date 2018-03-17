@@ -1,10 +1,10 @@
 package com.practice.trees;
 
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class BinaryTree<T> implements Tree<T>{
 
 	private Node<T> root;
@@ -47,7 +47,6 @@ public class BinaryTree<T> implements Tree<T>{
 	 * 
 	 * @param root
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public String preOrder() {
 		if (root == null) {
@@ -78,7 +77,6 @@ public class BinaryTree<T> implements Tree<T>{
 	 * 
 	 * @param root
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public String postOrder() {
 		if (root == null) {
@@ -87,7 +85,6 @@ public class BinaryTree<T> implements Tree<T>{
 		StringBuilder sb = new StringBuilder();
 		Node<T> curr = root;
 		Stack<Node> stack = new Stack<>();
-		// TODO: Write working code. Currently going into an infinite loop.
 		while(true) {
 			while (curr != null) {
 				stack.push(curr);
@@ -161,7 +158,6 @@ public class BinaryTree<T> implements Tree<T>{
 	 * 
 	 * @param root
 	 */
-	@SuppressWarnings("rawtypes")
 	@Override
 	public String inOrder() {
 		if (root == null) {
@@ -185,6 +181,9 @@ public class BinaryTree<T> implements Tree<T>{
 		return sb.toString();
 	}
 
+	/**
+	 * Perform a level order traversal. Here queues are more suitable than stacks.
+	 */
 	@Override
 	public String levelOrder() {
 		if (root == null) {
@@ -243,15 +242,69 @@ public class BinaryTree<T> implements Tree<T>{
 		return false;
 	}
 	
-	public static void main(String[] args) {
-		Tree<String> bTree = new BinaryTree<>();
-		bTree.add("A");
-		bTree.add("B");
-		bTree.add("C");
-		bTree.add("D");
-		bTree.add("E");
-		bTree.add("F");
-		bTree.add("G");
-		System.out.println(bTree.postOrder());
+	/**
+	 * Returns the number of elements from the given node including itself
+	 */
+	@Override
+	public int size(Node curr) {
+		if (curr == null) {
+			return 0;
+		}
+		return 1 + size(curr.getLeft()) + size(curr.getRight());
+	}
+
+	/**
+	 * Delete all nodes of tree recursively. Close to a postOrder traversal.
+	 */
+	@Override
+	public void deleteRecursive(Node curr) {
+		if (curr == null) {
+			return;
+		}
+		deleteRecursive(curr.getLeft());
+		deleteRecursive(curr.getRight());
+		if (curr == root) {
+			root = null;
+		}
+		curr = null;
+	}
+
+	/**
+	 * Delete all nodes of tree non-recursively. Close to a postOrder traversal.
+	 */
+	@Override
+	public void deleteNonRecursive() {
+		if (root == null) {
+			return;
+		}
+		Node curr = root;
+		Stack<Node> stack = new Stack<>();
+		while (true) {
+			while (curr != null) {
+				stack.push(curr);
+				curr = curr.getLeft();
+			}
+			if (stack.isEmpty()) {
+				break;
+			}
+			curr = stack.peek();
+			if (curr.getRight() == null) {
+				stack.pop();
+				if (!stack.isEmpty()) {
+					if (stack.peek().getLeft() == curr) {
+						stack.peek().setLeft(null);
+					} else if (stack.peek().getRight() == curr) {
+						stack.peek().setRight(null);
+					}
+				} else {
+					root = null;
+					break;
+				}
+				curr = stack.peek();
+			}
+			if (curr != null) {
+				curr = curr.getRight();
+			}
+		}
 	}
 }

@@ -57,4 +57,21 @@ public class TreesTest {
 		assertTrue(((BinaryTree<String>) bTree).searchNonRecursive("F"));
 		assertTrue(!((BinaryTree<String>) bTree).searchNonRecursive("X"));
 	}
+	
+	@Test
+	public void testSize() {
+		assertEquals(7, bTree.size(bTree.getRoot()));
+	}
+	
+	@Test
+	public void testDeleteRecursive() {
+		bTree.deleteRecursive(bTree.getRoot());
+		assertNull(bTree.getRoot());
+	}
+	
+	@Test
+	public void testDeleteNonRecursive() {
+		bTree.deleteNonRecursive();
+		assertNull(bTree.getRoot());
+	}
 }
