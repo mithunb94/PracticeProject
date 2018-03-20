@@ -64,6 +64,16 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testGetDeepest() {
+		assertEquals("G", bTree.getDeepest().getData());
+	}
+	
+	@Test
+	public void testGetParentUsingData() {
+		assertEquals("A", ((BinaryTree<String>)bTree).getParent("B").getData());
+	}
+	
+	@Test
 	public void testDeleteRecursive() {
 		bTree.deleteRecursive(bTree.getRoot());
 		assertNull(bTree.getRoot());
@@ -74,4 +84,6 @@ public class TreesTest {
 		bTree.deleteNonRecursive();
 		assertNull(bTree.getRoot());
 	}
+	
+	
 }

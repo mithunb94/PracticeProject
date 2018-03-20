@@ -1,21 +1,23 @@
 package com.practice.trees;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 public class TestMain {
 
 	public static void main(String[] args) {
-		String[] values = new String[] {"a", "b", "c", "d"};
-		List<String> valuesList = Arrays.asList(values);
-		Set<String> valueSet = new HashSet<String>(valuesList);
-		System.out.println(valuesList);
-		System.out.println(valueSet);
-		values[3] = "e";
-		System.out.println(valuesList);
-		System.out.println(valueSet);
+		System.out.println(isPalindrome("abcba"));
+		System.out.println(isPalindrome("abx"));
+		
 	}
 
+	public static boolean isPalindrome(String str) {
+		if (str == null) {
+			return false;
+		}
+		if (str.length() == 0 || str.length() == 1) {
+			return true;
+		}
+		if (str.charAt(0) == str.charAt(str.length()-1)) {
+			return isPalindrome(str.substring(1, str.length()-1));
+		}
+		return false;
+	}
 }

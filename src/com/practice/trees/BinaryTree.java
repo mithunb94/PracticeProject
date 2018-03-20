@@ -307,4 +307,97 @@ public class BinaryTree<T> implements Tree<T>{
 			}
 		}
 	}
+	
+	/**
+	 * Find a node in the tree with the given data and find out it's parent.
+	 * @param data, value in the node
+	 * @return
+	 */
+	public Node<T> getParent(T data) {
+		Node<T> parent = null;
+		if (root == null || (root != null && root.getData() == data)) {
+			//Root does not have a parent.
+			return null;
+		}
+		Queue<Node> q = new LinkedList<Node>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			Node curr = q.remove();
+			if (curr.getLeft() != null) {
+				if (curr.getLeft().getData() == data) {
+					parent = curr;
+					break;
+				} else {
+					q.add(curr.getLeft());
+				}
+			}
+			if (curr.getRight() != null) {
+				if (curr.getRight().getData() == data) {
+					parent = curr;
+					break;
+				} else {
+					q.add(curr.getRight());
+				}
+			}
+		}
+		return parent;
+	}
+	
+	/**
+	 * Find the given node in the tree and find out it's parent.
+	 * @param node
+	 * @return
+	 */
+	public Node<T> getParent(Node<T> node) {
+		Node<T> parent = null;
+		if (root == null || (root != null && root == node)) {
+			//Root does not have a parent.
+			return null;
+		}
+		Queue<Node> q = new LinkedList<Node>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			Node curr = q.remove();
+			if (curr.getLeft() != null) {
+				if (curr.getLeft() == node) {
+					parent = curr;
+					break;
+				} else {
+					q.add(curr.getLeft());
+				}
+			}
+			if (curr.getRight() != null) {
+				if (curr.getRight() == node) {
+					parent = curr;
+					break;
+				} else {
+					q.add(curr.getRight());
+				}
+			}
+		}
+		return parent;
+	}
+	
+	/**
+	 * Get the deepest node in the tree.
+	 */
+	@Override
+	public Node<T> getDeepest() {
+		Node<T> deepest = null;
+		if (root == null) {
+			return null;
+		}
+		Queue<Node> q = new LinkedList<Node>();
+		q.add(root);
+		while (!q.isEmpty()) {
+			deepest = q.remove();
+			if (deepest.getLeft() != null) {
+				q.add(deepest.getLeft());
+			}
+			if (deepest.getRight() != null) {
+				q.add(deepest.getRight());
+			}
+		}
+		return deepest;
+	}
 }
