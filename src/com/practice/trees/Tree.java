@@ -21,4 +21,6 @@ public interface Tree<T> {
 	public abstract void deleteNonRecursive();
 	
 	public abstract Node<T> getDeepest();
+	
+	public abstract void delete(T data);
 }

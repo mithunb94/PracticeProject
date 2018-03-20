@@ -400,4 +400,66 @@ public class BinaryTree<T> implements Tree<T>{
 		}
 		return deepest;
 	}
+
+	@Override
+	public void delete(T data) {
+		if (root == null) {
+			return;
+		}
+		Node<T> deepest = getDeepest();
+		Node<T> parentOfDeepest = getParent(deepest);
+		Node<T> parent = null;
+		Node<T> nodeToBeDeleted = null;
+		boolean isLeftChild = false;
+		boolean isRightChild = false;
+		Queue<Node> q = new LinkedList<Node>();
+		if (root.getData() == data) {
+			if (parentOfDeepest.getLeft() == deepest) {
+				parentOfDeepest.setLeft(null);
+			} else if (parentOfDeepest.getRight() == deepest) {
+				parentOfDeepest.setRight(null);
+			}
+			deepest.setLeft(root.getLeft());
+			deepest.setRight(root.getRight());
+			root = deepest;
+			return;
+		}
+		q.add(root);
+		while (!q.isEmpty()) {
+			Node curr = q.remove();
+			if (curr.getLeft() != null) {
+				if (curr.getLeft().getData() == data) {
+					parent = curr;
+					nodeToBeDeleted = curr.getLeft();
+					isLeftChild = true;
+					break;
+				} else {
+					q.add(curr.getLeft());
+				}
+				if (curr.getRight().getData() == data) {
+					parent = curr;
+					nodeToBeDeleted = curr.getRight();
+					isRightChild = true;
+					break;
+				} else {
+					q.add(curr.getRight());
+				}
+			}
+		}
+		if (parentOfDeepest.getLeft() == deepest) {
+			parentOfDeepest.setLeft(null);
+		} else if (parentOfDeepest.getRight() == deepest) {
+			parentOfDeepest.setRight(null);
+		}
+		if (isLeftChild) {
+			parent.setLeft(deepest);
+			deepest.setLeft(nodeToBeDeleted.getLeft());
+			deepest.setRight(nodeToBeDeleted.getRight());
+		} else if (isRightChild) {
+			parent.setRight(deepest);
+			deepest.setLeft(nodeToBeDeleted.getLeft());
+			deepest.setRight(nodeToBeDeleted.getRight());
+		}
+		return;
+	}
 }

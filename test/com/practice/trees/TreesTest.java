@@ -73,6 +73,12 @@ public class TreesTest {
 		assertEquals("A", ((BinaryTree<String>)bTree).getParent("B").getData());
 	}
 	
+	@Test 
+	public void testDeleteNode() {
+		bTree.delete("B");
+		assertEquals("AGCDEF", bTree.levelOrder());
+	}
+	
 	@Test
 	public void testDeleteRecursive() {
 		bTree.deleteRecursive(bTree.getRoot());
@@ -84,6 +90,5 @@ public class TreesTest {
 		bTree.deleteNonRecursive();
 		assertNull(bTree.getRoot());
 	}
-	
 	
 }
