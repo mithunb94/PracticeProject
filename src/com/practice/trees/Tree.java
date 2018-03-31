@@ -23,4 +23,6 @@ public interface Tree<T> {
 	public abstract Node<T> getDeepest();
 	
 	public abstract void delete(T data);
+	
+	public abstract int height();
 }

@@ -462,4 +462,32 @@ public class BinaryTree<T> implements Tree<T>{
 		}
 		return;
 	}
+	
+	/**
+	 * This method uses a non-recursive approach to find the height of a binary tree.
+	 * The idea here is to find the queue size at every level and then find all
+	 * the children below that level.
+	 */
+	public int height() {
+		if (root == null) {
+			return 0;
+		}
+		Queue<Node> q = new LinkedList<>();
+		q.add(root);
+		int height = 0;
+		while(!q.isEmpty()) {
+			int elders = q.size();
+			while(elders-- >0) {
+				Node curr = q.remove();
+				if (curr.getLeft() != null) {
+					q.add(curr.getLeft());
+				}
+				if (curr.getRight() != null) {
+					q.add(curr.getRight());
+				}
+			}
+			height++;			
+		}
+		return height;
+	}
 }

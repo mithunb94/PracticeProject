@@ -64,6 +64,11 @@ public class TreesTest {
 	}
 	
 	@Test
+	public void testHeight() {
+		assertEquals(3, bTree.height());
+	}
+	
+	@Test
 	public void testGetDeepest() {
 		assertEquals("G", bTree.getDeepest().getData());
 	}
